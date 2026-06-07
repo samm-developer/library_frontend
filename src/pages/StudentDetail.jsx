@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { api } from "../api";
+import { api, fileUrl } from "../api";
 
 function formatDate(d) {
   if (!d) return "—";
@@ -69,8 +69,8 @@ export default function StudentDetail() {
             <div>
               <span className="muted">Photo</span>
               {student.photo ? (
-                <a href={student.photo} target="_blank" rel="noreferrer">
-                  <img src={student.photo} alt="student" className="thumb" />
+                <a href={fileUrl(student.photo)} target="_blank" rel="noreferrer">
+                  <img src={fileUrl(student.photo)} alt="student" className="thumb" />
                 </a>
               ) : (
                 <p className="muted">Not uploaded</p>
@@ -79,8 +79,8 @@ export default function StudentDetail() {
             <div>
               <span className="muted">Aadhar / PAN</span>
               {student.idPhoto ? (
-                <a href={student.idPhoto} target="_blank" rel="noreferrer">
-                  <img src={student.idPhoto} alt="id" className="thumb" />
+                <a href={fileUrl(student.idPhoto)} target="_blank" rel="noreferrer">
+                  <img src={fileUrl(student.idPhoto)} alt="id" className="thumb" />
                 </a>
               ) : (
                 <p className="muted">Not uploaded</p>
