@@ -6,6 +6,7 @@ export const API_ORIGIN =
   import.meta.env.VITE_API_ORIGIN ||
   (API_BASE.startsWith("http") ? API_BASE.replace(/\/api\/?$/, "") : "");
 
+  
 export const api = axios.create({
   baseURL: API_BASE,
 });
