@@ -91,6 +91,9 @@ export default function UserDashboard() {
             <li><span>Qualification</span><b>{user.qualification}</b></li>
             <li><span>ID Number</span><b>{user.idNumber}</b></li>
             <li><span>Study Hours</span><b>{user.hours} hrs {user.startTime && user.endTime ? `(${user.startTime} – ${user.endTime})` : ""}</b></li>
+            {user.chairNumber && (
+              <li><span>Chair Number</span><b>Chair {user.chairNumber}</b></li>
+            )}
           </ul>
         </div>
       </div>

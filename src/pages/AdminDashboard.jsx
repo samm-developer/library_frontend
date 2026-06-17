@@ -142,6 +142,11 @@ export default function AdminDashboard() {
                         {s.startTime} - {s.endTime}
                       </div>
                     )}
+                    {s.chairNumber && (
+                      <div className="badge" style={{ marginTop: "4px", fontSize: "0.75rem", display: "inline-block", backgroundColor: "#e0e7ff", color: "#4338ca" }}>
+                        Chair {s.chairNumber}
+                      </div>
+                    )}
                   </td>
                   <td>₹{s.fee.amountDue}</td>
                   <td>

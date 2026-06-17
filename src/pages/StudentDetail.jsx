@@ -46,6 +46,9 @@ export default function StudentDetail() {
             <li><span>Qualification</span><b>{student.qualification}</b></li>
             <li><span>ID Number</span><b>{student.idNumber}</b></li>
             <li><span>Study Hours</span><b>{student.hours} hrs {student.startTime && student.endTime ? `(${student.startTime} – ${student.endTime})` : ""}</b></li>
+            {student.chairNumber && (
+              <li><span>Chair Number</span><b>Chair {student.chairNumber}</b></li>
+            )}
             <li><span>Current Address</span><b>{student.currentAddress}</b></li>
             <li><span>Permanent Address</span><b>{student.permanentAddress}</b></li>
             <li><span>Registered On</span><b>{formatDate(student.createdAt)}</b></li>
