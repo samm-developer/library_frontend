@@ -254,7 +254,7 @@ export default function Register() {
       </form>
 
       <p className="muted center">
-        Already registered? <Link to="/login">Sign in</Link>
+        Already registered? <Link to="/login">Student Sign In</Link>
       </p>
     </div>
   );

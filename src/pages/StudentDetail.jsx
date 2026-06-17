@@ -98,28 +98,30 @@ export default function StudentDetail() {
         {payments.length === 0 ? (
           <p className="muted">No payments yet.</p>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Reference</th>
-                <th>Amount</th>
-                <th>Period</th>
-                <th>Paid On</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments.map((p) => (
-                <tr key={p._id}>
-                  <td>{p.reference}</td>
-                  <td>₹{p.amount}</td>
-                  <td>
-                    {formatDate(p.periodStart)} – {formatDate(p.periodEnd)}
-                  </td>
-                  <td>{formatDate(p.createdAt)}</td>
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Amount</th>
+                  <th>Period</th>
+                  <th>Paid On</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {payments.map((p) => (
+                  <tr key={p._id}>
+                    <td>{p.reference}</td>
+                    <td>₹{p.amount}</td>
+                    <td>
+                      {formatDate(p.periodStart)} – {formatDate(p.periodEnd)}
+                    </td>
+                    <td>{formatDate(p.createdAt)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
