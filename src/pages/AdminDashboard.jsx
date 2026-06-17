@@ -135,7 +135,14 @@ export default function AdminDashboard() {
                   <td>{s.name}</td>
                   <td>{s.email}</td>
                   <td>{s.mobile}</td>
-                  <td>{s.hours}</td>
+                  <td>
+                    {s.hours} hrs
+                    {s.startTime && s.endTime && (
+                      <div className="muted" style={{ fontSize: "0.8rem", whiteSpace: "nowrap" }}>
+                        {s.startTime} - {s.endTime}
+                      </div>
+                    )}
+                  </td>
                   <td>₹{s.fee.amountDue}</td>
                   <td>
                     {s.fee.isPaid ? (

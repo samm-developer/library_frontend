@@ -1,6 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+
+const HOURS_OPTIONS = [
+  "12:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM",
+  "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"
+];
+
+function getHourValue(timeStr) {
+  if (!timeStr) return 0;
+  const [time, modifier] = timeStr.split(" ");
+  let [hours] = time.split(":");
+  hours = parseInt(hours, 10);
+  if (modifier === "PM" && hours !== 12) {
+    hours += 12;
+  }
+  if (modifier === "AM" && hours === 12) {
+    hours = 0;
+  }
+  return hours;
+}
 
 const initial = {
   name: "",
@@ -12,6 +31,8 @@ const initial = {
   currentAddress: "",
   permanentAddress: "",
   idNumber: "",
+  startTime: "",
+  endTime: "",
   hours: "",
   password: "",
 };
@@ -27,6 +48,22 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
 
   const set = (key) => (e) => setForm({ ...form, [key]: e.target.value });
+
+  useEffect(() => {
+    if (form.startTime && form.endTime) {
+      const startVal = getHourValue(form.startTime);
+      const endVal = getHourValue(form.endTime);
+      let diff = endVal - startVal;
+      if (diff < 0) {
+        diff += 24;
+      } else if (diff === 0) {
+        diff = 24;
+      }
+      setForm((f) => ({ ...f, hours: String(diff) }));
+    } else {
+      setForm((f) => ({ ...f, hours: "" }));
+    }
+  }, [form.startTime, form.endTime]);
 
   const onSameAddress = (e) => {
     const checked = e.target.checked;
@@ -100,14 +137,26 @@ export default function Register() {
             <input value={form.idNumber} onChange={set("idNumber")} required />
           </div>
           <div>
-            <label>Study time (hours only) *</label>
-            <input
-              type="number"
-              min="1"
-              value={form.hours}
-              onChange={set("hours")}
-              required
-            />
+            <label>Start Time (O'clock) *</label>
+            <select value={form.startTime} onChange={set("startTime")} required>
+              <option value="">Select start time…</option>
+              {HOURS_OPTIONS.map((h) => (
+                <option key={h} value={h}>
+                  {h}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>End Time (O'clock) *</label>
+            <select value={form.endTime} onChange={set("endTime")} required>
+              <option value="">Select end time…</option>
+              {HOURS_OPTIONS.map((h) => (
+                <option key={h} value={h}>
+                  {h}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -168,7 +217,7 @@ export default function Register() {
 
         {fee > 0 && (
           <div className="fee-preview">
-            Estimated monthly fee: <strong>₹{fee}</strong> ({form.hours} hrs × ₹100)
+            Estimated monthly fee: <strong>₹{fee}</strong> ({form.hours} hrs [{form.startTime} to {form.endTime}] × ₹100)
           </div>
         )}
 

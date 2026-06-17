@@ -90,7 +90,7 @@ export default function UserDashboard() {
             <li><span>Mobile</span><b>{user.mobile}</b></li>
             <li><span>Qualification</span><b>{user.qualification}</b></li>
             <li><span>ID Number</span><b>{user.idNumber}</b></li>
-            <li><span>Study Hours</span><b>{user.hours} hrs</b></li>
+            <li><span>Study Hours</span><b>{user.hours} hrs {user.startTime && user.endTime ? `(${user.startTime} – ${user.endTime})` : ""}</b></li>
           </ul>
         </div>
       </div>
