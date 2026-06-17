@@ -56,6 +56,13 @@ export default function Register() {
     }
   };
 
+  const onIdNumberChange = (e) => {
+    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""); // Allow only alphanumeric in uppercase
+    if (value.length <= 12) {
+      setForm((f) => ({ ...f, idNumber: value }));
+    }
+  };
+
   useEffect(() => {
     if (form.startTime && form.endTime) {
       const startVal = getHourValue(form.startTime);
@@ -148,7 +155,13 @@ export default function Register() {
           </div>
           <div>
             <label>Aadhar Number / PAN No. *</label>
-            <input value={form.idNumber} onChange={set("idNumber")} required />
+            <input
+              value={form.idNumber}
+              onChange={onIdNumberChange}
+              maxLength={12}
+              style={{ textTransform: "uppercase" }}
+              required
+            />
           </div>
           <div>
             <label>Start Time (O'clock) *</label>
