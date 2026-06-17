@@ -49,6 +49,13 @@ export default function Register() {
 
   const set = (key) => (e) => setForm({ ...form, [key]: e.target.value });
 
+  const onMobileChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); // Allow only digits
+    if (value.length <= 10) {
+      setForm((f) => ({ ...f, mobile: value }));
+    }
+  };
+
   useEffect(() => {
     if (form.startTime && form.endTime) {
       const startVal = getHourValue(form.startTime);
@@ -122,7 +129,14 @@ export default function Register() {
           </div>
           <div>
             <label>Mobile Number *</label>
-            <input value={form.mobile} onChange={set("mobile")} required />
+            <input
+              type="tel"
+              pattern="[0-9]{10}"
+              title="10-digit mobile number"
+              value={form.mobile}
+              onChange={onMobileChange}
+              required
+            />
           </div>
           <div>
             <label>Qualification *</label>
