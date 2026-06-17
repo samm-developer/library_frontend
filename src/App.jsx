@@ -7,43 +7,99 @@ import Register from "./pages/Register.jsx";
 import UserDashboard from "./pages/UserDashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import StudentDetail from "./pages/StudentDetail.jsx";
+import Careers from "./pages/Careers.jsx";
+import Enquiries from "./pages/Enquiries.jsx";
+import Contact from "./pages/Contact.jsx";
+import Gallery from "./pages/Gallery.jsx";
+import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
     <>
       <Navbar />
-      <main className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute role="student">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/gallery"
+          element={
+            <main className="container">
+              <Gallery />
+            </main>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <main className="container">
+              <Login />
+            </main>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <main className="container">
+              <Register />
+            </main>
+          }
+        />
+        <Route
+          path="/careers"
+          element={
+            <main className="container">
+              <Careers />
+            </main>
+          }
+        />
+        <Route
+          path="/enquiries"
+          element={
+            <main className="container">
+              <Enquiries />
+            </main>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <main className="container">
+              <Contact />
+            </main>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute role="student">
+              <main className="container">
                 <UserDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute role="admin">
+              </main>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="admin">
+              <main className="container">
                 <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/students/:id"
-            element={
-              <ProtectedRoute role="admin">
+              </main>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/students/:id"
+          element={
+            <ProtectedRoute role="admin">
+              <main className="container">
                 <StudentDetail />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </main>
+              </main>
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
