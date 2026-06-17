@@ -3,9 +3,34 @@ import { useState, useEffect } from "react";
 export default function Gallery() {
   const images = [
     {
-      url: "/images/library_interior.png",
+      url: "/images/library_interior_v2.png",
       title: "Main Study Hall",
       description: "Our spacious, naturally lit study environment equipped with high-speed internet, premium study desks, and power outlets."
+    },
+    {
+      url: "/images/infra_1.jpg",
+      title: "Premium Study Cubicles",
+      description: "Clean, individual study desks designed with power sockets and comfortable seating along our signature brick accent wall."
+    },
+    {
+      url: "/images/infra_2.png",
+      title: "AC Quiet Study Zone",
+      description: "Air-conditioned quiet zone with fully partition-separated cubicles for focused, distraction-free self-study."
+    },
+    {
+      url: "/images/infra_3.png",
+      title: "12-Hour & Full-Day Study Desks",
+      description: "Numbered study rows (51-63) allocated exclusively for 12-hour or full-day shift students. Short-term study is not allowed, ensuring an uninterrupted study environment."
+    },
+    {
+      url: "/images/infra_4.jpg",
+      title: "Unreserved Study Desks",
+      description: "Open study rows allocated on a flexible basis without time-slot bookings, offering students unreserved seating options for self-study."
+    },
+    {
+      url: "/images/locker_desks.png",
+      title: "Premium Locker Desks",
+      description: "Dedicated study desks for full-time students featuring personal lockable cabinets and keys to safely store laptops, chargers, and notebooks."
     },
     {
       url: "/images/panel_1.png",
@@ -36,6 +61,51 @@ export default function Gallery() {
       url: "/images/achievements.png",
       title: "The King's Library Achievements Board",
       description: "Our wall of honor celebrating student milestones, competitive successes, and academic achievements."
+    },
+    {
+      url: "/images/sandeep_wasim_inauguration.jpg",
+      title: "Inauguration Day Guest Meet",
+      description: "Sandeep Kushwaha Ji (Founder of Allahabadi Bhaukal channel) meeting with Wasim Sir on the official inauguration day of The King's Library."
+    },
+    {
+      url: "/images/republic_day_police.jpg",
+      title: "Republic Day Celebration - Chief Guest SI Amit Yadav",
+      description: "Library members celebrating Republic Day with chief guest Amit Yadav Sir, Sub-Inspector (SI) of George Town police station."
+    },
+    {
+      url: "/images/republic_day_map.jpg",
+      title: "Student Rangoli - India Map",
+      description: "A beautiful hand-drawn India map Rangoli created by the students of The King's Library to celebrate Republic Day."
+    },
+    {
+      url: "/images/republic_day_doctor.jpg",
+      title: "Republic Day Celebration - Guest Dr. Prashant Shukla",
+      description: "Students and staff celebrating Republic Day with distinguished guest Dr. Prashant Shukla Sir (MBBS, Physician)."
+    },
+    {
+      url: "/images/visiting_card.png",
+      title: "Official Library Info Card",
+      description: "The official visiting card of The King's Library outlining key amenities, contact numbers, and our address at George Town, Prayagraj."
+    },
+    {
+      url: "/images/motivation_hindi.png",
+      title: "Motivational Study Quote",
+      description: "An inspiring motivational message in Hindi encouraging students to dedicate themselves to consistency and self-preparation."
+    },
+    {
+      url: "/images/students_heartbeat.png",
+      title: "Library Advertisement Poster",
+      description: "Promotional advertisement poster of The King's Library highlighting 'The Students' Heartbeat' along with the contact details for admission queries."
+    },
+    {
+      url: "/images/library_full_form.png",
+      title: "LIBRARY Full Form Poster",
+      description: "An educational poster detailing the full form of LIBRARY, representing the values of Learning, Intelligence, Behavior, Rationality, Ability, Reading, and Yield of knowledge."
+    },
+    {
+      url: "/images/logo.png",
+      title: "Official Brand Logo",
+      description: "The official emblem and brand logo of The King's Library, representing our core values of academic excellence, peaceful study environment, and modern facilities."
     }
   ];
 
@@ -92,7 +162,11 @@ export default function Gallery() {
             onClick={() => openLightbox(idx)}
           >
             <div className="gallery-img-wrapper">
-              <img src={img.url} alt={img.title} className="gallery-grid-img" />
+              <img 
+                src={img.url} 
+                alt={img.title} 
+                className={`gallery-grid-img ${img.url.includes("logo.png") ? "gallery-logo-img" : ""}`} 
+              />
               <div className="gallery-img-overlay">
                 <span className="zoom-icon">🔍</span>
                 <span className="view-text">Preview Image</span>
@@ -125,7 +199,7 @@ export default function Gallery() {
             <img
               src={images[selectedIdx].url}
               alt={images[selectedIdx].title}
-              className="lightbox-main-img"
+              className={`lightbox-main-img ${images[selectedIdx].url.includes("logo.png") ? "lightbox-logo-img" : ""}`}
             />
             <div className="lightbox-caption">
               <span className="lightbox-counter">
