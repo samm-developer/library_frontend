@@ -1,8 +1,54 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Home() {
   const { user } = useAuth();
+
+  const reviews = [
+    {
+      stars: "★★★★★",
+      text: "A great library I came across by chance but got hooked to it nevertheless. A very great place to study with daily newspapers and wifi available 24/7 with every facility you can hope for.",
+      author: "Amartya Samrat"
+    },
+    {
+      stars: "★★★★★",
+      text: "Experience the rare charm of a private library where the depth of the collection is matched only by the owner's approachable and engaging personality. It's a place where books and friendly conversation seamlessly intertwine.",
+      author: "Mahi Maurya"
+    },
+    {
+      stars: "★★★★★",
+      text: "Very good ambiance...washroom are very clean and hygenic..perfect place for study.",
+      author: "Pratiksha Rai"
+    },
+    {
+      stars: "★★★★★",
+      text: "I recently visited this library, and I must say, it's a serene haven for students. The calming atmosphere, thanks to the efficient air conditioning, made my experience truly enjoyable. What stood out even more was the owner's calm behavior.",
+      author: "Ansh Pandey"
+    },
+    {
+      stars: "★★★★★",
+      text: "study in a very good environment. Library owner's good behavior towards children and good facilities.",
+      author: "Subham Chauhan"
+    }
+  ];
+
+  const [activeReviewIdx, setActiveReviewIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveReviewIdx((prev) => (prev + 1) % reviews.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeReviewIdx, reviews.length]);
+
+  const prevReview = () => {
+    setActiveReviewIdx((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
+  };
+
+  const nextReview = () => {
+    setActiveReviewIdx((prev) => (prev + 1) % reviews.length);
+  };
   
   return (
     <div className="homepage">
@@ -250,7 +296,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="card vision-card highlighted-vision-card">
+              <div className="card vision-card">
                 <div className="card-header-with-icon">
                   <span className="card-icon">👁️‍🗨️</span>
                   <h3>Our Vision</h3>
@@ -309,39 +355,54 @@ export default function Home() {
         <section className="testimonials-section">
           <div className="section-container">
             <div className="section-header">
-              <h2>Student Success Stories</h2>
-              <p className="muted">Hear what our hard-working students say about their experience.</p>
+              <h2>Student Reviews from Google Maps</h2>
+              <p className="muted">Read what our serious learners and aspirants say about their study experience with us.</p>
             </div>
             
-            <div className="testimonials-grid">
-              <div className="testimonial-card card">
-                <div className="stars">★★★★★</div>
-                <p className="testimonial-text">
-                  "The best study environment I have ever experienced. The peaceful atmosphere helps me stay focused for long hours."
-                </p>
-                <h5 className="testimonial-author">- Rahul Kumar</h5>
+            <div className="reviews-slider-container">
+              <button type="button" className="slider-nav-btn prev" onClick={prevReview} aria-label="Previous review">&#10094;</button>
+              
+              <div className="reviews-viewport">
+                <div 
+                  className="reviews-track"
+                  style={{ transform: `translate3d(calc(-${activeReviewIdx} * var(--slide-width)), 0, 0)` }}
+                >
+                  {[...reviews, reviews[0], reviews[1]].map((rev, idx) => (
+                    <div className="reviews-slide" key={idx}>
+                      <div className={`testimonial-card card color-${(idx % reviews.length) + 1}`} style={{ height: "100%", margin: 0, padding: "24px" }}>
+                        <div className="stars">{rev.stars}</div>
+                        <p className="testimonial-text">"{rev.text}"</p>
+                        <h5 className="testimonial-author">- {rev.author}</h5>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="testimonial-card card">
-                <div className="stars">★★★★★</div>
-                <p className="testimonial-text">
-                  "Clean facilities, comfortable seating and excellent management. Highly recommended for serious students."
-                </p>
-                <h5 className="testimonial-author">- Priya Sharma</h5>
-              </div>
-              <div className="testimonial-card card">
-                <div className="stars">★★★★★</div>
-                <p className="testimonial-text">
-                  "The 24-hour access and high-speed Wi-Fi make this library perfect for competitive exam preparation."
-                </p>
-                <h5 className="testimonial-author">- Aman Singh</h5>
-              </div>
-              <div className="testimonial-card card">
-                <div className="stars">★★★★★</div>
-                <p className="testimonial-text">
-                  "Affordable fees and excellent facilities. The staff is very supportive and professional."
-                </p>
-                <h5 className="testimonial-author">- Neha Verma</h5>
-              </div>
+
+              <button type="button" className="slider-nav-btn next" onClick={nextReview} aria-label="Next review">&#10095;</button>
+            </div>
+
+            <div className="slider-dots">
+              {reviews.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`slider-dot ${idx === activeReviewIdx ? "active" : ""}`}
+                  onClick={() => setActiveReviewIdx(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+
+            <div style={{ textAlign: "center", marginTop: "32px" }}>
+              <a
+                href="https://share.google/etRc2pSyCWktPE2pT"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost"
+              >
+                Write a Review or View All on Google Maps
+              </a>
             </div>
           </div>
         </section>
