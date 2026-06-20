@@ -11,6 +11,20 @@ function formatDate(d) {
   });
 }
 
+function loadRazorpayScript() {
+  return new Promise((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function UserDashboard() {
   const { user, refresh } = useAuth();
   const [data, setData] = useState(null);
@@ -30,13 +44,61 @@ export default function UserDashboard() {
     setPaying(true);
     setMessage("");
     try {
+      const isScriptLoaded = await loadRazorpayScript();
+      if (!isScriptLoaded) {
+        setMessage("Razorpay SDK failed to load. Please check your internet connection.");
+        setPaying(false);
+        return;
+      }
+
       const res = await api.post("/fees/pay");
-      setMessage(`Payment successful! Ref: ${res.data.payment.reference}`);
-      await refresh();
-      await load();
+      const { key, orderId, amount, currency, reference } = res.data;
+
+      const options = {
+        key,
+        amount,
+        currency,
+        name: "The Kings Library",
+        description: "Monthly Study Fee Payment",
+        order_id: orderId,
+        handler: async function (response) {
+          setPaying(true);
+          setMessage("Verifying payment...");
+          try {
+            await api.post("/fees/verify", {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              reference,
+            });
+            setMessage("Payment completed successfully!");
+            await refresh();
+            await load();
+          } catch (verifyErr) {
+            setMessage(verifyErr.response?.data?.message || "Payment verification failed");
+          } finally {
+            setPaying(false);
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email,
+          contact: user.mobile,
+        },
+        theme: {
+          color: "#4f46e5",
+        },
+        modal: {
+          ondismiss: function () {
+            setPaying(false);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
       setMessage(err.response?.data?.message || "Payment failed");
-    } finally {
       setPaying(false);
     }
   };
@@ -90,7 +152,10 @@ export default function UserDashboard() {
             <li><span>Mobile</span><b>{user.mobile}</b></li>
             <li><span>Qualification</span><b>{user.qualification}</b></li>
             <li><span>ID Number</span><b>{user.idNumber}</b></li>
-            <li><span>Study Hours</span><b>{user.hours} hrs</b></li>
+            <li><span>Study Hours</span><b>{user.hours} hrs {user.startTime && user.endTime ? `(${user.startTime} – ${user.endTime})` : ""}</b></li>
+            {user.chairNumber && (
+              <li><span>Chair Number</span><b>Chair {user.chairNumber}</b></li>
+            )}
           </ul>
         </div>
       </div>
@@ -100,28 +165,30 @@ export default function UserDashboard() {
         {payments.length === 0 ? (
           <p className="muted">No payments yet.</p>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Reference</th>
-                <th>Amount</th>
-                <th>Period</th>
-                <th>Paid On</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments.map((p) => (
-                <tr key={p._id}>
-                  <td>{p.reference}</td>
-                  <td>₹{p.amount}</td>
-                  <td>
-                    {formatDate(p.periodStart)} – {formatDate(p.periodEnd)}
-                  </td>
-                  <td>{formatDate(p.createdAt)}</td>
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Amount</th>
+                  <th>Period</th>
+                  <th>Paid On</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {payments.map((p) => (
+                  <tr key={p._id}>
+                    <td>{p.reference}</td>
+                    <td>₹{p.amount}</td>
+                    <td>
+                      {formatDate(p.periodStart)} – {formatDate(p.periodEnd)}
+                    </td>
+                    <td>{formatDate(p.createdAt)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

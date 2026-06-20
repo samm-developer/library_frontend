@@ -116,44 +116,58 @@ export default function AdminDashboard() {
         {rows.length === 0 ? (
           <p className="muted">No records found.</p>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Hours</th>
-                <th>Fee</th>
-                <th>Status</th>
-                <th>Valid Until</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((s) => (
-                <tr key={s._id}>
-                  <td>{s.name}</td>
-                  <td>{s.email}</td>
-                  <td>{s.mobile}</td>
-                  <td>{s.hours}</td>
-                  <td>₹{s.fee.amountDue}</td>
-                  <td>
-                    {s.fee.isPaid ? (
-                      <span className="badge badge-ok">Paid</span>
-                    ) : (
-                      <span className="badge badge-due">Defaulter</span>
-                    )}
-                  </td>
-                  <td>{formatDate(s.fee.paidUntil)}</td>
-                  <td>
-                    <Link to={`/admin/students/${s._id}`} className="btn btn-sm">
-                      View
-                    </Link>
-                  </td>
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Hours</th>
+                  <th>Fee</th>
+                  <th>Status</th>
+                  <th>Valid Until</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rows.map((s) => (
+                  <tr key={s._id}>
+                    <td>{s.name}</td>
+                    <td>{s.email}</td>
+                    <td>{s.mobile}</td>
+                    <td>
+                      {s.hours} hrs
+                      {s.startTime && s.endTime && (
+                        <div className="muted" style={{ fontSize: "0.8rem", whiteSpace: "nowrap" }}>
+                          {s.startTime} - {s.endTime}
+                        </div>
+                      )}
+                      {s.chairNumber && (
+                        <div className="badge" style={{ marginTop: "4px", fontSize: "0.75rem", display: "inline-block", backgroundColor: "#e0e7ff", color: "#4338ca" }}>
+                          Chair {s.chairNumber}
+                        </div>
+                      )}
+                    </td>
+                    <td>₹{s.fee.amountDue}</td>
+                    <td>
+                      {s.fee.isPaid ? (
+                        <span className="badge badge-ok">Paid</span>
+                      ) : (
+                        <span className="badge badge-due">Defaulter</span>
+                      )}
+                    </td>
+                    <td>{formatDate(s.fee.paidUntil)}</td>
+                    <td>
+                      <Link to={`/admin/students/${s._id}`} className="btn btn-sm">
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

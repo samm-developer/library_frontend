@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <div className="auth-card card">
-      <h2>Sign in</h2>
+      <h2>Student Sign In</h2>
       {error && <div className="alert alert-error">{error}</div>}
       <form onSubmit={submit}>
         <label>Email</label>
@@ -43,7 +43,7 @@ export default function Login() {
           required
         />
         <button className="btn btn-block" disabled={loading}>
-          {loading ? "Signing in…" : "Sign in"}
+          {loading ? "Signing in…" : "Student Sign In"}
         </button>
       </form>
       <p className="muted center">

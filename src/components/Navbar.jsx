@@ -84,7 +84,7 @@ export default function Navbar() {
             {!user && (
               <>
                 <Link to="/login" className="btn-signin" onClick={closeMenu}>
-                  Sign In
+                  Student Sign In
                 </Link>
                 <Link to="/register" className="btn-register" onClick={closeMenu}>
                   Register
