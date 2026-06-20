@@ -1,0 +1,9 @@
+# https://thekingslibrary.in
+User-agent: *
+Allow: /
+
+# Private / auth-only areas — no SEO value
+Disallow: /dashboard
+Disallow: /admin
+
+Sitemap: https://thekingslibrary.in/sitemap.xml
