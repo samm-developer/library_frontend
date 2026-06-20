@@ -12,6 +12,8 @@ import Careers from "./pages/Careers.jsx";
 import Enquiries from "./pages/Enquiries.jsx";
 import Contact from "./pages/Contact.jsx";
 import Gallery from "./pages/Gallery.jsx";
+import Books from "./pages/Books.tsx";
+import Seats from "./pages/Seats.tsx";
 import Footer from "./components/Footer.jsx";
 
 export default function App() {
@@ -42,6 +44,22 @@ export default function App() {
           element={
             <main className="container">
               <Register />
+            </main>
+          }
+        />
+        <Route
+          path="/books"
+          element={
+            <main className="container">
+              <Books />
+            </main>
+          }
+        />
+        <Route
+          path="/seats"
+          element={
+            <main className="container">
+              <Seats />
             </main>
           }
         />

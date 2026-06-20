@@ -51,6 +51,20 @@ export default function Navbar() {
               Home
             </Link>
             <Link
+              to="/books"
+              className={`nav-link ${isActive("/books") ? "active" : ""}`}
+              onClick={closeMenu}
+            >
+              Books
+            </Link>
+            <Link
+              to="/seats"
+              className={`nav-link ${isActive("/seats") ? "active" : ""}`}
+              onClick={closeMenu}
+            >
+              Seats
+            </Link>
+            <Link
               to="/gallery"
               className={`nav-link ${isActive("/gallery") ? "active" : ""}`}
               onClick={closeMenu}

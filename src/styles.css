@@ -2258,3 +2258,256 @@ h3 {
     padding: 24px;
   }
 }
+
+/* ===================== Books & Seats pages ===================== */
+.books-page,
+.seats-page {
+  padding: 32px 0 64px;
+}
+.books-header {
+  margin-bottom: 24px;
+}
+.books-header h2 {
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin: 0 0 6px;
+}
+.result-count {
+  margin: 8px 0 16px;
+  font-size: 0.9rem;
+}
+
+/* Search box + suggestions */
+.book-search {
+  position: relative;
+  max-width: 520px;
+  margin-bottom: 20px;
+}
+.book-search-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.book-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.suggestions-dropdown {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  max-height: 320px;
+  overflow-y: auto;
+}
+.suggestions-dropdown li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.suggestions-dropdown li:hover {
+  background: var(--accent-light);
+}
+.sugg-title {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.sugg-author {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* Books grid */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.book-cover {
+  height: 120px;
+  border-radius: 10px;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.book-cover-fallback {
+  font-size: 2.6rem;
+}
+.book-title {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+.book-author {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.book-category {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-dark);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.book-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  color: var(--text);
+}
+.book-stock {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin: 4px 0 10px;
+}
+.book-stock .in {
+  color: var(--ok);
+}
+.book-stock .out {
+  color: var(--due);
+}
+.book-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+.book-actions .btn {
+  flex: 1;
+}
+.my-rentals,
+.my-bookings {
+  margin-top: 36px;
+}
+
+/* Seats picker */
+.slot-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.slot-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.slot-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.slot-field input,
+.slot-field select {
+  padding: 10px 12px;
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: var(--surface);
+}
+.slot-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Seat grid */
+.seat-legend {
+  display: flex;
+  gap: 20px;
+  margin: 8px 0 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.seat-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.seat-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.seat-dot.available {
+  background: var(--ok);
+}
+.seat-dot.taken {
+  background: var(--due);
+}
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  gap: 10px;
+}
+.seat {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+.seat.available {
+  background: var(--ok-bg);
+  color: var(--ok);
+  border: 1px solid var(--ok);
+}
+.seat.available:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.seat.taken {
+  background: var(--due-bg);
+  color: var(--due);
+  border: 1px solid var(--due);
+  cursor: not-allowed;
+}
+.seat:disabled {
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .slot-picker {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .slot-actions {
+    flex-direction: column;
+  }
+}
