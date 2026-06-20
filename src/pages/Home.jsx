@@ -86,7 +86,7 @@ export default function Home() {
       <section className="story-section">
         <div className="story-section-container">
           <div className="story-section-header">
-            <span className="story-badge">Established on 5 May 2023</span>
+            <span className="story-badge">Established on 5 March 2023</span>
             <h2 className="story-section-title">Our Story</h2>
             <p className="story-section-subtitle">Founded by Rajat Keshari in Prayagraj</p>
           </div>
@@ -125,7 +125,7 @@ export default function Home() {
             <div className="story-content-column">
               <div className="story-text-block">
                 <p>
-                  <strong>The King's Library</strong> was established on <strong>5 May 2023</strong> in Prayagraj with a vision to create a dedicated and disciplined learning environment for students preparing for academic and competitive examinations. Founded by <strong>Rajat Keshari</strong>, the library was started with a simple yet powerful mission: to provide students with a peaceful space where they can maintain consistency, self-discipline, and focused self-study.
+                  <strong>The King's Library</strong> was established on <strong>5 March 2023</strong> in Prayagraj with a vision to create a dedicated and disciplined learning environment for students preparing for academic and competitive examinations. Founded by <strong>Rajat Keshari</strong>, the library was started with a simple yet powerful mission: to provide students with a peaceful space where they can maintain consistency, self-discipline, and focused self-study.
                 </p>
                 <p>
                   The library believes that success in any examination is not achieved through short-term effort but through continuous learning and regular practice. The King's Library was created to help students develop this consistency by offering a distraction-free atmosphere, quality study resources, and a community of serious learners.
@@ -145,14 +145,14 @@ export default function Home() {
               {/* Timeline */}
               <div className="story-timeline">
                 <div className="timeline-item">
-                  <div className="timeline-badge-year">May 5, 2023</div>
+                  <div className="timeline-badge-year">March 5, 2023</div>
                   <div className="timeline-content">
                     <h4>Foundation</h4>
                     <p>Established with a vision for consistent self-study.</p>
                   </div>
                 </div>
                 <div className="timeline-item">
-                  <div className="timeline-badge-year">May 2023</div>
+                  <div className="timeline-badge-year">March 2023</div>
                   <div className="timeline-content">
                     <h4>Inauguration</h4>
                     <p>Inaugurated by leading mentors, encouraging discipline and focus.</p>
